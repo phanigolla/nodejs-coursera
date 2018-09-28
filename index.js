@@ -3,6 +3,11 @@ const http = require('http');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+const dishRouter = require('./routes/dishRouter');
+const promoRouter = require('./routes/promoRouter');
+const leaderRouter = require('./routes/leaderRouter');
+
+
 const hostname = 'localhost';
 const port = 3000;
 
@@ -10,10 +15,15 @@ const app =express();
 
 app.use(morgan('dev'));
 
+app.use('/dishes',dishRouter);
+app.use('/promotions',promoRouter);
+app.use('/leaders',leaderRouter);
+
 app.use(express.static(__dirname+ '/public'));
 
 app.use(bodyParser.json());
 
+/* move this part of /dishes to dishRouter.js
 app.all('/dishes',(req,res,next) => {
     res.statusCode=200;
     res.setHeader('Content-Type','text/plain');
@@ -37,6 +47,9 @@ app.delete('/dishes',(req,res,next) =>{
     res.end('Deletes all the dishes');
 });
 
+*/
+
+/*
 app.get('/dishes/:dishId',(req,res,next) =>{
     res.end('Will send details of the dish : ' + req.params.dishId + ' to you');
 });
@@ -54,6 +67,7 @@ app.put('/dishes/:dishId',(req,res,next) => {
 app.delete('/dishes/:dishId',(req,res,next) =>{
     res.end('Deleting the dishId: ' + req.params.dishId);
 });
+*/
 
 
 
